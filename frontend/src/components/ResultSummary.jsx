@@ -1,74 +1,126 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { FiUser, FiMapPin, FiCalendar, FiRefreshCw } from 'react-icons/fi'
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  FiUser,
+  FiMapPin,
+  FiCalendar,
+  FiRefreshCw,
+} from "react-icons/fi";
 
 const ResultSummary = ({ data, summaryText }) => {
-  const { doctor, patient } = data
+  const { doctor, patient } = data;
+
+  const initials =
+    doctor?.name
+      ?.split(" ")
+      .map((n) => n[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || "DR";
 
   return (
     <div className="space-y-4">
-      {/* Doctor info */}
+
+      {/* Doctor Info */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-5"
+        className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-5"
       >
-        <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-4">Doctor Information</p>
+        <p className="text-[11px] text-slate-500 uppercase tracking-widest mb-4">
+          Doctor
+        </p>
+
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-teal-400 rounded-xl flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-            {doctor.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+
+          {/* Avatar */}
+          <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
+            {initials}
           </div>
+
+          {/* Info */}
           <div>
-            <p className="text-white font-semibold">{doctor.name}</p>
-            <p className="text-blue-400 text-sm">{doctor.specialization}</p>
-            <div className="flex flex-col sm:flex-row gap-2 mt-2 text-xs text-slate-400">
-              <span className="flex items-center gap-1"><FiMapPin size={11} />{doctor.hospital}</span>
-              <span className="flex items-center gap-1"><FiUser size={11} />Lic: {doctor.license}</span>
+            <p className="text-white font-medium">{doctor.name}</p>
+
+            <p className="text-cyan-400 text-sm mt-0.5">
+              {doctor.specialization}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 text-xs text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <FiMapPin size={11} />
+                {doctor.hospital}
+              </span>
+
+              <span className="flex items-center gap-1.5">
+                <FiUser size={11} />
+                License: {doctor.license}
+              </span>
             </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Patient info */}
+      {/* Patient Info */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="glass-card p-5"
+        className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-5"
       >
-        <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-3">Patient & Prescription</p>
-        <div className="grid grid-cols-2 gap-4">
+        <p className="text-[11px] text-slate-500 uppercase tracking-widest mb-4">
+          Patient details
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
           <div>
-            <p className="text-slate-400 text-xs mb-0.5">Patient Name</p>
-            <p className="text-white font-medium">{patient.name}</p>
+            <p className="text-slate-500 text-xs">Name</p>
+            <p className="text-white text-sm mt-1">{patient.name}</p>
           </div>
+
           <div>
-            <p className="text-slate-400 text-xs mb-0.5">Age</p>
-            <p className="text-white font-medium">{patient.age} years</p>
+            <p className="text-slate-500 text-xs">Age</p>
+            <p className="text-white text-sm mt-1">{patient.age} years</p>
           </div>
-          <div>
-            <p className="text-slate-400 text-xs mb-0.5">Date Prescribed</p>
-            <p className="text-white font-medium flex items-center gap-1"><FiCalendar size={12} />{patient.date}</p>
+
+          <div className="flex items-center gap-2">
+            <FiCalendar className="text-slate-400" size={12} />
+            <div>
+              <p className="text-slate-500 text-xs">Prescribed</p>
+              <p className="text-white text-sm mt-1">{patient.date}</p>
+            </div>
           </div>
-          <div>
-            <p className="text-slate-400 text-xs mb-0.5">Follow-up</p>
-            <p className="text-white font-medium flex items-center gap-1"><FiRefreshCw size={12} />{data.followUp.split(' ').slice(0, 3).join(' ')}…</p>
+
+          <div className="flex items-center gap-2">
+            <FiRefreshCw className="text-slate-400" size={12} />
+            <div>
+              <p className="text-slate-500 text-xs">Follow-up</p>
+              <p className="text-white text-sm mt-1">
+                {data.followUp}
+              </p>
+            </div>
           </div>
         </div>
       </motion.div>
 
       {/* Summary */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-gradient-to-r from-blue-500/10 to-teal-500/10 border border-blue-500/20 rounded-2xl p-5"
+        className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-5"
       >
-        <p className="text-xs text-blue-400 font-medium uppercase tracking-wider mb-2">Prescription Summary</p>
-        <p className="text-slate-200 text-sm leading-relaxed">{summaryText}</p>
+        <p className="text-[11px] text-slate-500 uppercase tracking-widest mb-2">
+          Summary
+        </p>
+
+        <p className="text-slate-300 text-sm leading-relaxed">
+          {summaryText}
+        </p>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default ResultSummary
+export default ResultSummary;
