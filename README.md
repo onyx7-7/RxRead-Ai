@@ -33,7 +33,7 @@ It transforms complex handwritten prescriptions into:
 - multilingual explanations  
 - accessible patient-friendly summaries  
 
-Built with a focus on **clarity, trust, and calm interaction design**.
+Built with a focus on **clarity, trust, and Smooth interaction design**.
 
 ---
 
